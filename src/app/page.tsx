@@ -2,14 +2,15 @@
 
 import React, { useState } from 'react';
 import { UploadCloud, Smartphone, ArrowRight, Check } from 'lucide-react';
+import styles from './wizard.module.css';
 
 const COLORS = [
-  '#6366f1', // Indigo
-  '#f43f5e', // Rose
-  '#10b981', // Emerald
-  '#f59e0b', // Amber
-  '#0ea5e9', // Sky
-  '#8b5cf6', // Violet
+  { id: 'indigo', hex: '#6366f1' },
+  { id: 'rose', hex: '#f43f5e' },
+  { id: 'emerald', hex: '#10b981' },
+  { id: 'amber', hex: '#f59e0b' },
+  { id: 'sky', hex: '#0ea5e9' },
+  { id: 'violet', hex: '#8b5cf6' },
 ];
 
 export default function WizardStep1() {
@@ -26,7 +27,7 @@ export default function WizardStep1() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-8 font-sans">
+    <div className={`min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-8 font-sans ${styles[`theme-${primaryColor.id}`]}`}>
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         {/* Left Column: Form Controls */}
@@ -48,8 +49,7 @@ export default function WizardStep1() {
                 id="riadName"
                 value={riadName}
                 onChange={(e) => setRiadName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 transition-all transition-colors bg-gray-50/50"
-                style={{ '--tw-ring-color': primaryColor } as React.CSSProperties}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--theme-color)] transition-all transition-colors bg-gray-50/50"
                 placeholder="Ex. Riad Majorelle"
               />
             </div>
@@ -62,15 +62,14 @@ export default function WizardStep1() {
               <div className="flex gap-4">
                 {COLORS.map((color) => (
                   <button
-                    key={color}
+                    key={color.id}
                     onClick={() => setPrimaryColor(color)}
-                    className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 shadow-sm ${
-                      primaryColor === color ? 'ring-2 ring-offset-2 ring-gray-300' : ''
+                    className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 shadow-sm ${styles[`color-btn-${color.id}`]} ${
+                      primaryColor.id === color.id ? 'ring-2 ring-offset-2 ring-gray-300' : ''
                     }`}
-                    style={{ backgroundColor: color }}
-                    aria-label={`Sélectionner la couleur ${color}`}
+                    aria-label={`Sélectionner la couleur ${color.id}`}
                   >
-                    {primaryColor === color && (
+                    {primaryColor.id === color.id && (
                       <Check className="text-white w-5 h-5 absolute" />
                     )}
                   </button>
@@ -99,10 +98,9 @@ export default function WizardStep1() {
 
           <div className="pt-6 border-t border-gray-100 mt-2">
             <button
-              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-white font-semibold text-lg transition-transform active:scale-[0.98] shadow-lg hover:shadow-xl"
-              style={{ backgroundColor: primaryColor }}
+              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-white font-semibold text-lg transition-transform active:scale-[0.98] shadow-lg hover:shadow-xl bg-[var(--theme-color)]"
             >
-              Suivant
+               Suivant
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -136,10 +134,7 @@ export default function WizardStep1() {
                     {riadName || 'Nom du riad...'}
                   </h2>
                   <div className="flex items-center gap-2">
-                    <span 
-                      className="w-2.5 h-2.5 rounded-full" 
-                      style={{ backgroundColor: primaryColor }}
-                    />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[var(--theme-color)]" />
                     <p className="text-gray-200 text-sm font-medium">Bienvenue</p>
                   </div>
                 </div>
@@ -148,8 +143,8 @@ export default function WizardStep1() {
               {/* Mock App Content Area */}
               <div className="flex-1 p-6 flex flex-col gap-4">
                 <div className="h-20 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center p-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${primaryColor}20` }}>
-                    <Smartphone className="w-6 h-6" style={{ color: primaryColor }} />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[var(--theme-light)]">
+                    <Smartphone className="w-6 h-6 text-[var(--theme-color)]" />
                   </div>
                   <div className="ml-4 flex-1">
                     <div className="h-4 w-24 bg-gray-200 rounded animate-pulse mb-2"></div>
@@ -160,7 +155,7 @@ export default function WizardStep1() {
                 <div className="h-32 rounded-2xl bg-white shadow-sm border border-gray-100 p-4">
                   <div className="flex justify-between items-center mb-4">
                     <div className="h-4 w-20 bg-gray-200 rounded"></div>
-                    <div className="h-6 w-16 rounded-full" style={{ backgroundColor: `${primaryColor}20` }}>
+                    <div className="h-6 w-16 rounded-full bg-[var(--theme-light)]">
                     </div>
                   </div>
                   <div className="h-2 w-full bg-gray-100 rounded mb-2"></div>
@@ -172,14 +167,14 @@ export default function WizardStep1() {
               {/* Mock Bottom Navigation */}
               <div className="h-20 bg-white border-t border-gray-100 flex justify-around items-center pb-6">
                 <div className="w-10 h-10 flex flex-col items-center justify-center gap-1.5">
-                  <div className="w-6 h-6 rounded-md" style={{ backgroundColor: primaryColor }}></div>
-                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: primaryColor }}></div>
+                  <div className="w-6 h-6 rounded-md bg-[var(--theme-color)]"></div>
+                  <div className="w-1 h-1 rounded-full bg-[var(--theme-color)]"></div>
                 </div>
                 <div className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 opacity-30 grayscale">
-                  <div className="w-6 h-6 rounded-md" style={{ backgroundColor: primaryColor }}></div>
+                  <div className="w-6 h-6 rounded-md bg-[var(--theme-color)]"></div>
                 </div>
                 <div className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 opacity-30 grayscale">
-                  <div className="w-6 h-6 rounded-md" style={{ backgroundColor: primaryColor }}></div>
+                  <div className="w-6 h-6 rounded-md bg-[var(--theme-color)]"></div>
                 </div>
               </div>
               

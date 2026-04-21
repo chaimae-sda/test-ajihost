@@ -1,0 +1,31 @@
+.theme-indigo {
+  --theme-color: #6366f1;
+  --theme-light: #6366f120;
+}
+.theme-rose {
+  --theme-color: #f43f5e;
+  --theme-light: #f43f5e20;
+}
+.theme-emerald {
+  --theme-color: #10b981;
+  --theme-light: #10b98120;
+}
+.theme-amber {
+  --theme-color: #f59e0b;
+  --theme-light: #f59e0b20;
+}
+.theme-sky {
+  --theme-color: #0ea5e9;
+  --theme-light: #0ea5e920;
+}
+.theme-violet {
+  --theme-color: #8b5cf6;
+  --theme-light: #8b5cf620;
+}
+
+.color-btn-indigo { background-color: #6366f1; }
+.color-btn-rose { background-color: #f43f5e; }
+.color-btn-emerald { background-color: #10b981; }
+.color-btn-amber { background-color: #f59e0b; }
+.color-btn-sky { background-color: #0ea5e9; }
+.color-btn-violet { background-color: #8b5cf6; }
