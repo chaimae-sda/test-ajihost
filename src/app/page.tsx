@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
 import { THEME_COLORS, TEXT_COLORS } from "./lib/constants";
-import type { ThemeColor, TextColor } from "./lib/types";
+import type { TextColor } from "./lib/types";
+import { useTheme } from "./lib/ThemeContext";
 
 import ColorPicker from "./components/ColorPicker";
 import ImageUpload from "./components/ImageUpload";
@@ -12,8 +13,9 @@ import PhonePreview from "./components/PhonePreview";
 import styles from "./wizard.module.css";
 
 export default function WizardStep1() {
+  const { themeColor, setThemeColor } = useTheme();
+
   const [riadName, setRiadName] = useState("");
-  const [primaryColor, setPrimaryColor] = useState<ThemeColor>(THEME_COLORS[0]);
   const [textColor, setTextColor] = useState<TextColor>(TEXT_COLORS[0]);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
@@ -27,7 +29,7 @@ export default function WizardStep1() {
   return (
     <div
       className={`min-h-[calc(100vh-64px)] bg-gray-50 flex items-center justify-center p-4 sm:p-8 font-sans ${
-        styles[`theme-${primaryColor.id}`]
+        styles[`theme-${themeColor.id}`]
       }`}
     >
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -73,8 +75,8 @@ export default function WizardStep1() {
               </label>
               <ColorPicker
                 items={THEME_COLORS}
-                selected={primaryColor}
-                onSelect={setPrimaryColor}
+                selected={themeColor}
+                onSelect={setThemeColor}
                 getButtonClass={(c) => styles[`color-btn-${c.id}`]}
                 getCheckClass={() => "text-white"}
                 ariaPrefix="Couleur"

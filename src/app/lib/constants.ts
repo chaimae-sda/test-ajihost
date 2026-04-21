@@ -23,8 +23,8 @@ export const TEXT_COLORS: TextColor[] = [
 // ── Module Repas ─────────────────────────────
 
 export const PLATS: Plat[] = [
-  { id: 1, nom: "Tajine poulet citron",  prix: 80, horaire: "12h-22h", image: "🍲" },
-  { id: 2, nom: "Briouates au fromage",  prix: 45, horaire: "8h-23h",  image: "🥟" },
+  { id: 1, nom: "Tajine poulet citron",  prix: 80, horaire: "12h-22h", image: "/images/tajine-poulet-citron.png" },
+  { id: 2, nom: "Briouates au fromage",  prix: 45, horaire: "8h-23h",  image: "/images/briouates-fromage.png" },
 ];
 
 export const RIAD: Riad = {
