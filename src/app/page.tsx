@@ -4,6 +4,11 @@ import React, { useState } from 'react';
 import { UploadCloud, Smartphone, ArrowRight, Check } from 'lucide-react';
 import styles from './wizard.module.css';
 
+const TEXT_COLORS = [
+  { id: 'white', textClass: 'text-white', bgClass: 'bg-white', checkColor: 'text-gray-900', label: 'Blanc' },
+  { id: 'black', textClass: 'text-gray-900', bgClass: 'bg-gray-900', checkColor: 'text-white', label: 'Noir' },
+];
+
 const COLORS = [
   { id: 'indigo', hex: '#6366f1' },
   { id: 'rose', hex: '#f43f5e' },
@@ -14,8 +19,9 @@ const COLORS = [
 ];
 
 export default function WizardStep1() {
-  const [riadName, setRiadName] = useState('Riad Exemple');
+  const [riadName, setRiadName] = useState('');
   const [primaryColor, setPrimaryColor] = useState(COLORS[0]);
+  const [textColor, setTextColor] = useState(TEXT_COLORS[0]);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +55,7 @@ export default function WizardStep1() {
                 id="riadName"
                 value={riadName}
                 onChange={(e) => setRiadName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--theme-color)] transition-all transition-colors bg-gray-50/50"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--theme-color)] transition-all transition-colors bg-gray-50/50 text-gray-900 placeholder-gray-400"
                 placeholder="Ex. Riad Majorelle"
               />
             </div>
@@ -71,6 +77,29 @@ export default function WizardStep1() {
                   >
                     {primaryColor.id === color.id && (
                       <Check className="text-white w-5 h-5 absolute" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Text Color Selector */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Couleur du texte
+              </label>
+              <div className="flex gap-4">
+                {TEXT_COLORS.map((tc) => (
+                  <button
+                    key={tc.id}
+                    onClick={() => setTextColor(tc)}
+                    className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 shadow-sm border border-gray-200 ${tc.bgClass} ${
+                      textColor.id === tc.id ? 'ring-2 ring-offset-2 ring-gray-300' : ''
+                    }`}
+                    aria-label={`Sélectionner la couleur de texte ${tc.label}`}
+                  >
+                    {textColor.id === tc.id && (
+                      <Check className={`${tc.checkColor} w-5 h-5 absolute`} />
                     )}
                   </button>
                 ))}
@@ -130,7 +159,7 @@ export default function WizardStep1() {
                 
                 {/* Riad Title */}
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h2 className="text-3xl font-bold text-white mb-2 shadow-sm leading-tight break-words">
+                  <h2 className={`text-3xl font-bold mb-2 shadow-sm leading-tight break-words ${textColor.textClass}`}>
                     {riadName || 'Nom du riad...'}
                   </h2>
                   <div className="flex items-center gap-2">
