@@ -1,36 +1,170 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏨 Ajihost — Plateforme de gestion de Riad
 
-## Getting Started
+> Application web Next.js permettant aux propriétaires de riads de personnaliser l'expérience digitale de leurs clients : apparence visuelle, module de restauration avec commande WhatsApp intégrée.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📸 Aperçu
+
+| Personnalisation (Admin) | Module Repas (Guest) |
+|:---:|:---:|
+| Formulaire + preview mobile en temps réel | Menu mobile-first avec commande WhatsApp |
+
+---
+
+## ✨ Fonctionnalités
+
+### 🎨 Étape 01 — Personnalisation
+- Upload d'image de fond avec **prévisualisation en temps réel**
+- Sélecteur de **couleur principale** (6 couleurs)
+- Sélecteur de **couleur du texte** (blanc / noir)
+- Champ de saisie du **nom du riad**
+- Simulation mobile (frame téléphone) mise à jour instantanément, **sans appel serveur**
+- Bouton **Suivant** toujours actif
+
+### 🍽️ Module Repas — Expérience Guest
+- Interface **mobile-first** simulant l'écran du client
+- Liste de plats avec **photos professionnelles** et prix
+- Horaires de disponibilité
+- Bouton **Commander par WhatsApp** avec message pré-rempli
+- **Couleur du thème partagée** depuis la page de personnalisation
+
+---
+
+## 🛠️ Stack technique
+
+| Technologie | Rôle |
+|---|---|
+| [Next.js 15](https://nextjs.org/) (App Router) | Framework React avec routing basé sur le système de fichiers |
+| [TypeScript](https://www.typescriptlang.org/) | Typage statique et sécurité du code |
+| [Tailwind CSS](https://tailwindcss.com/) | Styling utility-first, responsive design |
+| [Lucide React](https://lucide.dev/) | Icônes SVG légères |
+| React Context API | Partage de l'état du thème entre les pages |
+
+---
+
+## 📁 Structure du projet
+
+```
+src/app/
+├── components/           # Composants réutilisables
+│   ├── Navbar.tsx          → Navigation globale avec lien actif
+│   ├── ColorPicker.tsx     → Sélecteur de couleur générique
+│   ├── ImageUpload.tsx     → Dropzone d'upload avec preview
+│   ├── PhonePreview.tsx    → Maquette mobile (prévisualisation)
+│   └── PlatCard.tsx        → Carte de plat avec photo + WhatsApp
+├── lib/                  # Logique partagée
+│   ├── types.ts            → Interfaces TypeScript
+│   ├── constants.ts        → Données hardcodées (plats, couleurs)
+│   ├── utils.ts            → Fonctions utilitaires
+│   └── ThemeContext.tsx    → Contexte React pour la couleur du thème
+├── repas/
+│   └── page.tsx           # Page du module Repas
+├── page.tsx               # Page Personnalisation (Wizard Step 1)
+├── layout.tsx             # Layout racine + ThemeProvider
+├── globals.css            # Styles globaux
+└── wizard.module.css      # Variables CSS pour les thèmes couleur
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Lancer le projet en local
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prérequis
 
-## Learn More
+- [Node.js](https://nodejs.org/) version **18** ou supérieure
+- [npm](https://www.npmjs.com/) (inclus avec Node.js)
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/chaimae-sda/test-ajihost.git
+cd test-ajihost
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 2. Installer les dépendances
+npm install
 
-## Deploy on Vercel
+# 3. Lancer le serveur de développement
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+L'application sera accessible à l'adresse : **[http://localhost:3000](http://localhost:3000)**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> **💡 Astuce** : le serveur de développement supporte le Hot Reload — toute modification de code sera reflétée instantanément dans le navigateur.
+
+---
+
+## 🌐 Déployer sur GitHub Pages
+
+### Étape 1 — Configurer Next.js pour un export statique
+
+Ajouter les lignes suivantes dans `next.config.ts` :
+
+```typescript
+const nextConfig = {
+  output: "export",
+  basePath: "/test-ajihost",
+  images: {
+    unoptimized: true,
+  },
+};
+```
+
+### Étape 2 — Générer le build de production
+
+```bash
+npm run build
+```
+
+Cela crée un dossier `out/` contenant le site statique prêt à être déployé.
+
+### Étape 3 — Déployer via GitHub Actions (automatique)
+
+Créer le fichier `.github/workflows/deploy.yml` avec le contenu suivant :
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - uses: actions/deploy-pages@v4
+```
+
+### Étape 4 — Activer GitHub Pages
+
+1. Aller dans **Settings** → **Pages** sur le dépôt GitHub
+2. Sous **Source**, sélectionner **GitHub Actions**
+3. Pousser le code sur `master` — le déploiement se lance automatiquement
+
+Le site sera accessible à : `https://chaimae-sda.github.io/test-ajihost/`
+
+---
+
+## 📜 Licence
+
+Ce projet est à usage éducatif et de démonstration.
