@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,10 +25,31 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-gray-50">
+        {/* Navigation globale Dashboard */}
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+          <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+            <div className="font-bold text-lg tracking-tight text-gray-900 flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold">R</div>
+              Ajihost
+            </div>
+            <nav className="flex items-center gap-2 sm:gap-6">
+              <Link href="/" className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors">
+                Dashboard Admin
+              </Link>
+              <Link href="/repas" className="text-sm font-medium text-indigo-600 bg-indigo-50 px-4 py-2 rounded-lg hover:bg-indigo-100 transition-colors flex items-center gap-2">
+                <span className="hidden sm:inline">Vue Client :</span> Repas
+              </Link>
+            </nav>
+          </div>
+        </header>
+
+        {/* Page content */}
+        <main className="flex-1 flex flex-col">{children}</main>
+      </body>
     </html>
   );
 }
