@@ -60,7 +60,8 @@ src/app/
 │   └── ThemeContext.tsx    → Contexte React pour la couleur du thème
 ├── repas/
 │   └── page.tsx           # Page du module Repas
-├── page.tsx               # Page Personnalisation (Wizard Step 1)
+├── wizard/
+│   └── page.tsx           # Page Personnalisation (Wizard Step 1)
 ├── layout.tsx             # Layout racine + ThemeProvider
 ├── globals.css            # Styles globaux
 └── wizard.module.css      # Variables CSS pour les thèmes couleur

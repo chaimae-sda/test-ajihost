@@ -1,4 +1,4 @@
-## 1. Réflexion : La règle du bouton « Suivant » jamais bloqué
+## 1. La règle du bouton « Suivant » jamais bloqué
 
 ### Mon Analyse
 Dans le cadre de la solution SaaS **AjiHost**, cette règle privilégie le "Momentum" du propriétaire du Riad. En ne bloquant pas le flux, on réduit la friction et on favorise l'onboarding. C'est une bonne décision d'un point de vue conversion.

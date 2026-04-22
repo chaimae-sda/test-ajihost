@@ -3,19 +3,18 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
-import { THEME_COLORS, TEXT_COLORS } from "./lib/constants";
-import type { TextColor } from "./lib/types";
-import { useTheme } from "./lib/ThemeContext";
+import { THEME_COLORS, TEXT_COLORS } from "../lib/constants";
+import type { TextColor } from "../lib/types";
+import { useTheme } from "../lib/ThemeContext";
 
-import ColorPicker from "./components/ColorPicker";
-import ImageUpload from "./components/ImageUpload";
-import PhonePreview from "./components/PhonePreview";
-import styles from "./wizard.module.css";
+import ColorPicker from "../components/ColorPicker";
+import ImageUpload from "../components/ImageUpload";
+import PhonePreview from "../components/PhonePreview";
+import styles from "../wizard.module.css";
 
 export default function WizardStep1() {
-  const { themeColor, setThemeColor } = useTheme();
+  const { themeColor, setThemeColor, riadName, setRiadName } = useTheme();
 
-  const [riadName, setRiadName] = useState("");
   const [textColor, setTextColor] = useState<TextColor>(TEXT_COLORS[0]);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
@@ -63,7 +62,7 @@ export default function WizardStep1() {
                 id="riadName"
                 value={riadName}
                 onChange={(e) => setRiadName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--theme-color)] transition-colors bg-gray-50/50 text-gray-900 placeholder-gray-400"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-(--theme-color) transition-colors bg-gray-50/50 text-gray-900 placeholder-gray-400"
                 placeholder="Ex. Riad Majorelle"
               />
             </div>
@@ -112,7 +111,7 @@ export default function WizardStep1() {
 
           {/* Submit */}
           <div className="pt-6 border-t border-gray-100 mt-2">
-            <button className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-white font-semibold text-lg transition-transform active:scale-[0.98] shadow-lg hover:shadow-xl bg-[var(--theme-color)]">
+            <button className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-white font-semibold text-lg transition-transform active:scale-[0.98] shadow-lg hover:shadow-xl bg-(--theme-color)">
               Suivant
               <ArrowRight className="w-5 h-5" />
             </button>

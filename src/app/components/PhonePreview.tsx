@@ -13,7 +13,7 @@ export default function PhonePreview({
 }: PhonePreviewProps) {
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="relative w-[340px] h-[680px] bg-white rounded-[3rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] border-[8px] border-gray-900 overflow-hidden shrink-0">
+      <div className="relative w-85 h-170 bg-white rounded-[3rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] border-8 border-gray-900 overflow-hidden shrink-0">
         {/* Dynamic Island */}
         <div className="absolute top-0 inset-x-0 h-7 flex justify-center z-50">
           <div className="w-32 h-6 bg-gray-900 rounded-b-3xl" />
@@ -30,23 +30,23 @@ export default function PhonePreview({
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+              <div className="w-full h-full bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center">
                 <span className="text-gray-500 text-sm font-medium">
                   Aperçu de l&apos;image
                 </span>
               </div>
             )}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-gray-900/80 to-transparent" />
 
             <div className="absolute bottom-6 left-6 right-6">
               <h2
-                className={`text-3xl font-bold mb-2 leading-tight break-words ${textColorClass}`}
+                className={`text-3xl font-bold mb-2 leading-tight wrap-break-word ${textColorClass}`}
               >
                 {riadName || "Nom du riad..."}
               </h2>
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--theme-color)]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-(--theme-color)" />
                 <p className="text-gray-200 text-sm font-medium">Bienvenue</p>
               </div>
             </div>
@@ -55,8 +55,8 @@ export default function PhonePreview({
           {/* Skeleton Content */}
           <div className="flex-1 p-6 flex flex-col gap-4">
             <div className="h-20 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center p-4">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[var(--theme-light)]">
-                <Smartphone className="w-6 h-6 text-[var(--theme-color)]" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-(--theme-light)">
+                <Smartphone className="w-6 h-6 text-(--theme-color)" />
               </div>
               <div className="ml-4 flex-1">
                 <div className="h-4 w-24 bg-gray-200 rounded animate-pulse mb-2" />
@@ -67,7 +67,7 @@ export default function PhonePreview({
             <div className="h-32 rounded-2xl bg-white shadow-sm border border-gray-100 p-4">
               <div className="flex justify-between items-center mb-4">
                 <div className="h-4 w-20 bg-gray-200 rounded" />
-                <div className="h-6 w-16 rounded-full bg-[var(--theme-light)]" />
+                <div className="h-6 w-16 rounded-full bg-(--theme-light)" />
               </div>
               <div className="h-2 w-full bg-gray-100 rounded mb-2" />
               <div className="h-2 w-4/5 bg-gray-100 rounded mb-2" />
@@ -84,9 +84,9 @@ export default function PhonePreview({
                   !active ? "opacity-30 grayscale" : ""
                 }`}
               >
-                <div className="w-6 h-6 rounded-md bg-[var(--theme-color)]" />
+                <div className="w-6 h-6 rounded-md bg-(--theme-color)" />
                 {active && (
-                  <div className="w-1 h-1 rounded-full bg-[var(--theme-color)]" />
+                  <div className="w-1 h-1 rounded-full bg-(--theme-color)" />
                 )}
               </div>
             ))}
